@@ -180,24 +180,24 @@
 (use-package "tabbar")
 ;;(minimap-mode 1)
 (tabbar-mode 1)
-(use-package "evil-mode")
+(use-package "evil")
 (evil-mode 1)
-(use-package "nyan")
+(use-package "nyan-mode")
 (nyan-mode 1)
-(use-package "company")
+(use-package "ido")
 (ido-mode 1)
-(use-package "company")
+(use-package "recentf")
 (recentf-mode 1)
-(use-package "company")
 (electric-pair-mode 1)
-(use-package "company")
+(use-package "rainbow-mode")
 (rainbow-mode 1)
-(use-package "company")
 
 (load-library "tabbar-tweaks")
 ;;-----------------------------------------------------------------------------
 ;; set custom keybindings
 ;;----------------------------------------------------------------------------
+
+(message "Set Custom Keybindings")
 ;;(global-set-key (kbd "C-s") 'evil-write)
 ;;(global-set-key (kbd ("Tab") 'company-complete)
 (global-set-key (kbd "C-z") 'undo)
@@ -215,6 +215,7 @@
 ;;----------------------------------------------------------------------------
 ;; Customize Company
 ;;----------------------------------------------------------------------------
+(message "Customize Company")
 (setq company-tooltip-align-annotations t)
 (add-to-list 'company-backends 'company-c-headers)
 (global-set-key (kbd "C-<tab>") 'company-complete)
@@ -223,7 +224,7 @@
 ;;----------------------------------------------------------------------------
 ;; Customize Evil Mode
 ;;----------------------------------------------------------------------------
-
+(message "Customize Evil Mode")
 (setq evil-emacs-state-cursor '("red" box))
 (setq evil-normal-state-cursor '("green" box))
 (setq evil-visual-state-cursor '("orange" box))
@@ -240,12 +241,14 @@
 ;;----------------------------------------------------------------------------
 ;; Customize Scroll Behavior
 ;;----------------------------------------------------------------------------
+(message "Customize Scroll Behavior")
 (setq mouse-wheel-progressive-speed nil)
 (setq mouse-wheel-scroll-amount '(0.07))
 
 ;;----------------------------------------------------------------------------
 ;; Set Programming Modes
 ;;----------------------------------------------------------------------------
+(message "Setup Programming Modes")
 (add-hook 'prog-mode (lambda ()
 		       (company-mode 1)
 		       (eldoc-mode 1)
@@ -257,6 +260,7 @@
 ;;----------------------------------------------------------------------------
 ;; Set Python Mode
 ;;----------------------------------------------------------------------------
+(message "Setup Python Mode")
 (add-hook 'python-mode-hook (lambda ()
 			      (jedi:setup)
 			      (jedi-mode 1)
@@ -274,6 +278,7 @@
 ;;----------------------------------------------------------------------------
 ;; Set C Mode
 ;;----------------------------------------------------------------------------
+(message "Setup C Mode")
 (add-hook 'c-mode-hook (lambda ()
 			 (electric-pair-mode 1)
 			 (setq c-default-style "linux" c-basic-offset 4)
@@ -283,7 +288,7 @@
 ;;----------------------------------------------------------------------------
 ;; Set Javascript Mode
 ;;----------------------------------------------------------------------------
-
+(message "Setup Javascript mode")
 ;;(add-hook 'js2-mode-hook 'ac-js2-setup-auto-complete-mode)
 
 
@@ -304,22 +309,22 @@
 ;;----------------------------------------------------------------------------
 
 
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(custom-safe-themes
-   (quote
-    ("0c29db826418061b40564e3351194a3d4a125d182c6ee5178c237a7364f0ff12" "06f0b439b62164c6f8f84fdda32b62fb50b6d00e8b01c2208e55543a6337433a" "e8a976fbc7710b60b069f27f5b2f1e216ec8d228fe5091f677717d6375d2669f" "a27c00821ccfd5a78b01e4f35dc056706dd9ede09a8b90c6955ae6a390eb1c1e" "1b8d67b43ff1723960eb5e0cba512a2c7a2ad544ddb2533a90101fd1852b426e" "628278136f88aa1a151bb2d6c8a86bf2b7631fbea5f0f76cba2a0079cd910f7d" "bb08c73af94ee74453c90422485b29e5643b73b05e8de029a6909af6a3fb3f58" "22fd89870f06d0a1ec7b25156aeeb27492d67eb0ec0a424e2636ad85ee1e1604" "9b402e9e8f62024b2e7f516465b63a4927028a7055392290600b776e4a5b9905" "6df30cfb75df80e5808ac1557d5cc728746c8dbc9bc726de35b15180fa6e0ad9" "0ae52e74c576120c6863403922ee00340a3bf3051615674c4b937f9c99b24535" "f1a6cbc40528dbee63390fc81da426f1b00b4fc09a60fe35752f5838b12fbe0a" "cedd3b4295ac0a41ef48376e16b4745c25fa8e7b4f706173083f16d5792bb379" "a802c77b818597cc90e10d56e5b66945c57776f036482a033866f5f506257bca" "40f6a7af0dfad67c0d4df2a1dd86175436d79fc69ea61614d668a635c2cd94ab" default)))
- '(package-selected-packages
-   (quote
-    (company-tern tern-auto-complete tern ac-js2 zone-nyan zenburn-theme web-mode typing-game tss tronesque-theme tide telephone-line tao-theme tabbar sublimity sublime-themes sr-speedbar spacemacs-theme spaceline solarized-theme smooth-scrolling smart-mode-line-powerline-theme skewer-mode scroll-restore relative-line-numbers rainbow-mode powerline-evil popup-complete pager-default-keybindings on-screen nyan-mode multiple-cursors multi-web-mode monokai-theme moe-theme minimap jedi impatient-mode highlight-symbol helm-fuzzy-find hc-zenburn-theme green-phosphor-theme find-dired+ elpy doremi-cmd dired+ darktooth-theme company-web company-shell company-quickhelp company-lua company-jedi company-c-headers color-theme-sanityinc-tomorrow color-theme clean-buffers calmer-forest-theme beacon bash-completion base16-theme badwolf-theme badger-theme auto-highlight-symbol arduino-mode airline-themes)))
- '(tabbar-separator (quote (0.5))))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
+;; (custom-set-variables
+;;  ;; custom-set-variables was added by Custom.
+;;  ;; If you edit it by hand, you could mess it up, so be careful.
+;;  ;; Your init file should contain only one such instance.
+;;  ;; If there is more than one, they won't work right.
+;;  '(custom-safe-themes
+;;    (quote
+;;     ("0c29db826418061b40564e3351194a3d4a125d182c6ee5178c237a7364f0ff12" "06f0b439b62164c6f8f84fdda32b62fb50b6d00e8b01c2208e55543a6337433a" "e8a976fbc7710b60b069f27f5b2f1e216ec8d228fe5091f677717d6375d2669f" "a27c00821ccfd5a78b01e4f35dc056706dd9ede09a8b90c6955ae6a390eb1c1e" "1b8d67b43ff1723960eb5e0cba512a2c7a2ad544ddb2533a90101fd1852b426e" "628278136f88aa1a151bb2d6c8a86bf2b7631fbea5f0f76cba2a0079cd910f7d" "bb08c73af94ee74453c90422485b29e5643b73b05e8de029a6909af6a3fb3f58" "22fd89870f06d0a1ec7b25156aeeb27492d67eb0ec0a424e2636ad85ee1e1604" "9b402e9e8f62024b2e7f516465b63a4927028a7055392290600b776e4a5b9905" "6df30cfb75df80e5808ac1557d5cc728746c8dbc9bc726de35b15180fa6e0ad9" "0ae52e74c576120c6863403922ee00340a3bf3051615674c4b937f9c99b24535" "f1a6cbc40528dbee63390fc81da426f1b00b4fc09a60fe35752f5838b12fbe0a" "cedd3b4295ac0a41ef48376e16b4745c25fa8e7b4f706173083f16d5792bb379" "a802c77b818597cc90e10d56e5b66945c57776f036482a033866f5f506257bca" "40f6a7af0dfad67c0d4df2a1dd86175436d79fc69ea61614d668a635c2cd94ab" default)))
+;;  '(package-selected-packages
+;;    (quote
+;;     (company-tern tern-auto-complete tern ac-js2 zone-nyan zenburn-theme web-mode typing-game tss tronesque-theme tide telephone-line tao-theme tabbar sublimity sublime-themes sr-speedbar spacemacs-theme spaceline solarized-theme smooth-scrolling smart-mode-line-powerline-theme skewer-mode scroll-restore relative-line-numbers rainbow-mode powerline-evil popup-complete pager-default-keybindings on-screen nyan-mode multiple-cursors multi-web-mode monokai-theme moe-theme minimap jedi impatient-mode highlight-symbol helm-fuzzy-find hc-zenburn-theme green-phosphor-theme find-dired+ elpy doremi-cmd dired+ darktooth-theme company-web company-shell company-quickhelp company-lua company-jedi company-c-headers color-theme-sanityinc-tomorrow color-theme clean-buffers calmer-forest-theme beacon bash-completion base16-theme badwolf-theme badger-theme auto-highlight-symbol arduino-mode airline-themes)))
+;;  '(tabbar-separator (quote (0.5))))
+;; (custom-set-faces
+;;  ;; custom-set-faces was added by Custom.
+;;  ;; If you edit it by hand, you could mess it up, so be careful.
+;;  ;; Your init file should contain only one such instance.
+;;  ;; If there is more than one, they won't work right.
+;;  )
 
