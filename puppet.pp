@@ -1,3 +1,4 @@
 Package { ensure => 'installed' }
 package { 'emacs': }
-package { 'eclipse': }
+package { 'eclipse-java': }
+package { 'ranger': }
