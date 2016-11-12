@@ -1,12 +1,14 @@
 #!/bin/bash
 
-if [ "$EUID" -ne 0 ]
-  then echo "Please run as root"
-	    exit
-fi
-pacman -S puppet
-puppet apply init.pp
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+echo $DIR
 
-mkdir ~/.emacs.d/
 mkdir ~/.config/
+
+ln -s $DIR/emacs ~/.emacs.d
+ln -s $DIR/i3 ~/.config/i3
+
+
+
+
 
