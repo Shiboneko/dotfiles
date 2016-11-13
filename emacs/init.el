@@ -18,7 +18,7 @@
 ;;----------------------------------------------------------------------------
 
 (message "Define Custom Functions")
-(defun emacs-edit-config ()
+(defun my/emacs-config ()
   (interactive)
   (find-file "/home/user/.emacs.d/init.el")
   )
@@ -307,7 +307,35 @@
 
               (add-to-list (make-local-variable 'company-backends)
                            'company-tern)
-)))
+	      )))
+
+
+
+;;----------------------------------------------------------------------------
+;; Set Java Mode
+;;----------------------------------------------------------------------------
+
+;;(use-package "meghanada")
+;;(add-hook 'java-mode-hook
+;;          (lambda ()
+;;           ;; meghanada-mode on
+;;            (meghanada-mode t)
+;;            (add-hook 'before-save-hook 'delete-trailing-whitespace)))
+;; (use-package "meghanada"
+;;  :ensure t
+;;  :init
+;;  ;; Don't auto-start
+;;  ;;(setq meghanada-auto-start nil)
+;;  (add-hook 'java-mode-hook #'meghanada-mode)
+;;  (add-hook 'java-mode-hook 'flycheck-mode))
+
+;; (use-package realgud
+;;   :ensure t)
+
+(use-package "eclim")
+(custom-set-variables
+ '(eclim-eclipse-dirs '("/usr/lib/eclipse"))
+  '(eclim-executable "/usr/lib/eclipse/eclim"))
 ;;----------------------------------------------------------------------------
 ;; sml/setup variables
 ;;----------------------------------------------------------------------------
@@ -342,7 +370,7 @@
     ("84d2f9eeb3f82d619ca4bfffe5f157282f4779732f48a5ac1484d94d5ff5b279" "a27c00821ccfd5a78b01e4f35dc056706dd9ede09a8b90c6955ae6a390eb1c1e" default)))
  '(package-selected-packages
    (quote
-    (powerline-evil smart-mode-line-powerline rainbow-mode nyan-mode use-package tabbar smart-mode-line relative-line-numbers powerline evil company beacon auto-highlight-symbol)))
+    (eclim meghanada meghanda powerline-evil smart-mode-line-powerline rainbow-mode nyan-mode use-package tabbar smart-mode-line relative-line-numbers powerline evil company beacon auto-highlight-symbol)))
  '(tabbar-separator (quote (0.5))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
