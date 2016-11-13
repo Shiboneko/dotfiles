@@ -14,6 +14,15 @@
       )
 
 ;;----------------------------------------------------------------------------
+;; define Custom Functions
+;;----------------------------------------------------------------------------
+
+(message "Define Custom Functions")
+(defun emacs-edit-config ()
+  (interactive)
+  (find-file "/home/user/.emacs.d/init.el")
+  )
+;;----------------------------------------------------------------------------
 ;; Initialize use-package
 ;;----------------------------------------------------------------------------
 (message "Initialize use-package")
@@ -86,24 +95,28 @@
 ;; customize theme
 ;;-----------------------------------------------------------------------------
 
-(message "Customize Theme")
-(use-package "smart-mode-line")
-(use-package "powerline"
-:config
-(load-library "init-powerline"))
+;; (message "Customize Theme")
+;;(use-package "smart-mode-line")
+(use-package "powerline-evil")
+ (use-package "powerline"
+ :config
+ (load-library "init-powerline")
+ )
+;; (use-package "smart-mode-line-powerline-theme")
 
-(setq sml/no-confirm-load-theme t)
-(sml/setup)
-(set-face-attribute 'mode-line nil
-                    :foreground "Black"
-                    :background "DarkOrange"
-                    :box "Purple")
+;;(setq sml/no-confirm-load-theme t)
+;;(sml/setup)
+;; (set-face-attribute 'mode-line nil
+;;                      :foreground "Black"
+;;                    :background "DarkOrange"
+;;                      :box "Purple")
 (setq powerline-arrow-shape 'curve)
 ;;(powerline-evil-vim-color-theme)
-(setq sml/theme 'powerline)
+;;(setq sml/theme 'powerline)
 
-;(load-theme 'spolsky t)
+;; ;(load-theme 'spolsky t)
 (air--powerline-default-theme)
+
 ;;-----------------------------------------------------------------------------
 ;; set Font
 ;;-----------------------------------------------------------------------------
@@ -130,15 +143,6 @@
 
 
 
-;;----------------------------------------------------------------------------
-;; define Custom Functions
-;;----------------------------------------------------------------------------
-
-(message "Define Custom Functions")
-(defun emacs-edit-config ()
-  (interactive)
-  (find-file "/home/user/.emacs.d/init.el")
-  )
 
 
 
@@ -328,3 +332,21 @@
 ;;  ;; If there is more than one, they won't work right.
 ;;  )
 
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(custom-safe-themes
+   (quote
+    ("84d2f9eeb3f82d619ca4bfffe5f157282f4779732f48a5ac1484d94d5ff5b279" "a27c00821ccfd5a78b01e4f35dc056706dd9ede09a8b90c6955ae6a390eb1c1e" default)))
+ '(package-selected-packages
+   (quote
+    (powerline-evil smart-mode-line-powerline rainbow-mode nyan-mode use-package tabbar smart-mode-line relative-line-numbers powerline evil company beacon auto-highlight-symbol)))
+ '(tabbar-separator (quote (0.5))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
