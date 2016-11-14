@@ -20,7 +20,7 @@
 (message "Define Custom Functions")
 (defun my/emacs-config ()
   (interactive)
-  (find-file "/home/user/.emacs.d/init.el")
+  (find-file (concat user-emacs-directory "init.el"))
   )
 ;;----------------------------------------------------------------------------
 ;; Initialize use-package
