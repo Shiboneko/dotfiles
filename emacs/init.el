@@ -338,6 +338,15 @@
  '(eclim-executable "~/.eclim/eclipse/eclim"))
 
 
+(use-package "eclimd")
+(use-package "javadoc-lookup")
+
+(add-hook 'java-mode-hook (lambda ()
+			    (eclim-mode)
+			    )
+	  )
+
+
 
 ;;----------------------------------------------------------------------------
 ;; Setup Latex Mode
