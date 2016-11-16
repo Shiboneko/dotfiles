@@ -334,12 +334,21 @@
 
 (use-package "eclim")
 (custom-set-variables
- '(eclim-eclipse-dirs '("/usr/lib/eclipse"))
-  '(eclim-executable "/usr/lib/eclipse/eclim"))
+ '(eclim-eclipse-dirs '("~/.eclim//eclipse"))
+ '(eclim-executable "~/.eclim/eclipse/eclim"))
+
+
+
+;;----------------------------------------------------------------------------
+;; Setup Latex Mode
+;;----------------------------------------------------------------------------
+
+(use-package "auctex")
+(use-package "company-auctex")
+
 ;;----------------------------------------------------------------------------
 ;; sml/setup variables
 ;;----------------------------------------------------------------------------
-
 
 ;; (custom-set-variables
 ;;  ;; custom-set-variables was added by Custom.
