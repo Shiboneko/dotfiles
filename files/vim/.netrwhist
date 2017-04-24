@@ -1,0 +1,11 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhist_cnt =9
+let g:netrw_dirhist_1='/home/arischke/Projects/vdmaPuppet/modules/vdma/manifests/tomcat'
+let g:netrw_dirhist_2='/home/arischke/Projects/vdmaPuppet/modules/vdma/manifests'
+let g:netrw_dirhist_3='/home/arischke/Projects/vdmaPuppet/modules/vdma/manifests/tomcat'
+let g:netrw_dirhist_4='/home/arischke/Projects/vdma-puppet/modules/apache/spec/defines'
+let g:netrw_dirhist_5='/home/arischke/Projects/masterless-puppet/modules/user/spec/defines'
+let g:netrw_dirhist_6='/home/arischke/Projects/masterless-puppet/modules/cocomore/manifests/user'
+let g:netrw_dirhist_7='/home/arischke/Projects/masterless-puppet/modules/apache'
+let g:netrw_dirhist_8='/home/arischke/Projects/masterless-puppet/modules/php/files'
+let g:netrw_dirhist_9='/home/arischke/Projects/masterless-puppet/modules/apache/lib/puppet/provider/a2mod'
