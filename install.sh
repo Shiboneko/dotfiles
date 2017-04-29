@@ -1,77 +1,119 @@
 #!/bin/bash
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-
+BACKDIR="$DIR/backup/dotfiles/$(date "+%Y_%m_%d-%H_%M_%S")/"
 RELEASE=$(lsb_release -is)
 CONFIGDIR=~/.config
 FILEDIR=$DIR/files
 
 UBUNTUPACKAGES=( git curl scrot rofi ranger ncdu vim rxvt-unicode-256color zsh feh )
-if [ $RELEASE == "Ubuntu" ]; then
-        for i in "${UBUNTUPACKAGES[@]}"; do
-                echo "### installing $i ###"
 
-                sudo apt install --assume-yes $i > /dev/null 2>1
-        done
+e_header()   { echo -e "\n\033[1m$@\033[0m"; }
+e_success()  { echo -e " \033[1;32m✔\033[0m  $@"; }
+e_error()    { echo -e " \033[1;31m✖\033[0m  $@"; }
+e_arrow()    { echo -e " \033[1;33m➜\033[0m  $@"; }
 
-fi
+e_git () {
+        GITURL=$1
+        DEST=$2
+        e_header "Cloning $GITURL to $DEST"
 
-
-if [ ! -e ~/.fehbg ]; then
-        ln -s $FILEDIR/fehbg ~/.fehbg
-fi
-
-if [ ! -e ~/Bilder/Wallpaper ]; then
-        mkdir -p ~/Bilder/
-        ln -s $FILEDIR/Wallpaper ~/Bilder/Wallpaper
-fi
-
-if [ ! -e $CONFIGDIR ]; then
-        echo "### Creating $CONFIGDIR ###"
-        mkdir ~/.config
-else
-        echo "### $CONFIGDIR exists. Doing nothing ###"
-fi
-
-#if [ ! -d ~/.dotfiles ]; then
-#	echo "### Creating dotfiles directory ###"
-
-#	mkdir ~/.dotfiles/
-
-#fi
-#ln -s $FILEDIR/emacs ~/.emacs.d
-#ln -s $FILEDIR/i3 ~/.config/i3
-
-# Setup rofi
-rofi -v > /dev/null 2>1
-if [ $? -ne 0 ]; then
-        echo "### Installing rofi ###"
-        if [ $LSBRELEASE == "Ubuntu" ]; then
-                echo "### Installing for Ubuntu ###"
-                sudo apt install rofi
-        elif [ $RELEASE == "Arch" ]; then
-                echo "### Installing for Arch ###"
-                sudo pacman -S rofi
+        if [ -e $DEST ]; then
+                backup $DEST
         fi
-else
-        echo "### rofi $(rofi -v) is installed"
-fi
+        git clone $GITURL $DEST > /dev/null 2>1
+        e_success "$GITURL cloned to $DEST"
+
+}
+
+
+link () {
+
+        SOURCE=$1
+        DEST=$2
+
+                e_header "Linking $SOURCE to $DEST"
+
+        if test "$SOURCE" -ef "$DEST" ; then
+                e_success "$SOURCE"
+        else
+                if [ -e "$DEST" ];
+                then
+                        backup "$DEST" "$BACKDIR"
+                fi
+                rm $DEST
+                ln -s "$SOURCE" "$DEST"
+                e_success "$SOURCE"
+
+        fi
+
+}
+
+create() {
+
+
+        TARGET=$1
+
+        if [ ! -e $TARGET ]; then
+                e_header "Creating $TARGET"
+                mkdir -p "$TARGET"
+                e_success
+        fi
+
+        e_success "$TARGET created"
+
+}
+
+
+backup () {
+
+        FILE=$1
+        e_header "Backing up $FILE"
+        BASE=$(basename $FILE)
+        e_arrow "Using $BASE as Folder"
+        if [ ! -e "$BACKDIR/$BASE" ]; then
+                e_arrow "Creating $BACKDIR/$BASE"
+                mkdir -p "$BACKDIR/$BASE"
+        fi
+
+        e_arrow "Moving file to $BACKDIR/$BASE"
+
+        mv "$FILE" "$BACKDIR/$BASE"
+
+}
+
+install_packages () {
+        if [ $RELEASE == "Ubuntu" ]; then
+                for i in "${UBUNTUPACKAGES[@]}"; do
+                        e_header "installing $i via apt"
+
+                        sudo apt install --assume-yes $i > /dev/null 2>1
+                done
+
+        fi
+
+
+}
+
+
+link $FILEDIR/fehbg ~/.fehbg
+
+create ~/Bilder/
+link $FILEDIR/Wallpaper ~/Bilder/Wallpaper
+
+
+create $CONFIGDIR
 
 ROFIDIR=$CONFIGDIR/rofi
-if [ ! -e $ROFIDIR ]; then
-        echo "### Creating $ROFIDIR ###"
-        mkdir $ROFIDIR
-        ln -s $FILEDIR/rofi_config $ROFIDIR/config
-else
-        echo "### $ROFIDIR exists already. Doing nothing ###"
-fi
+create $ROFIDIR
+link $FILEDIR/rofi_config $ROFIDIR/config
 
 # Setup i3
 i3 -v > /dev/null 2>1
 if [ $? -ne 0 ]; then
-        echo "### Installing i3 ###"
+        e_header "Installing i3"
         if [ $RELEASE == "Ubuntu" ]; then
-                echo "### on Ubuntu"
+                e_arrow "on Ubuntu"
                 sudo add-apt-repository ppa:aguignard/ppa -y > /dev/null 2>1
                 sudo apt-get update > /dev/null 2>1
                 sudo apt install libxcb1-dev libxcb-keysyms1-dev libpango1.0-dev libxcb-util0-dev libxcb-icccm4-dev libyajl-dev libstartup-notification0-dev libxcb-randr0-dev libev-dev libxcb-cursor-dev libxcb-xinerama0-dev libxcb-xkb-dev libxkbcommon-dev libxkbcommon-x11-dev autoconf libxcb-xrm-dev --assume-yes > /dev/null 2>1
@@ -88,21 +130,16 @@ if [ $? -ne 0 ]; then
                 make
                 sudo make install
         elif [ $RELEASE == "Arch" ]; then
-                echo "### on Arch ###"
+                e_header "on Arch"
                 #TODO: Implement
         fi
 else
-        echo "### i3 already installed"
+        e_success "i3 already installed"
 fi
-                
-I3DIR=$CONFIGDIR/i3
-if [ ! -e $I3DIR ]; then
-        echo "### Linking $FILEDIR/i3 to $I3DIR ###"
-        ln -s $FILEDIR/i3 $I3DIR
 
-else
-        echo "### $I3DIR already exists. Doing nothing ###"
-fi
+I3DIR=$CONFIGDIR/i3
+link $FILEDIR/i3 $I3DIR
+
 
 i3lock -v > /dev/null 2>1
 if [ $? -ne 0 ]; then
@@ -128,60 +165,33 @@ fi
 # Setup vim
 
 VIMDIR=~/.vim
-if [ ! -e $VIMDIR ];
-then
 
-	echo "### Creating Vim directory ###"
-	mkdir ~/.vim
-	mkdir ~/.vim/bundle/
-	
-        git clone git://github.com/scrooloose/syntastic.git ~/.vim/bundle/syntastic
-	git clone https://github.com/godlygeek/tabular.git ~/.vim/bundle/tabular
-	git clone https://github.com/vim-airline/vim-airline.git ~/.vim/bundle/vim-airline
-	git clone https://github.com/vim-airline/vim-airline-themes ~/.vim/bundle/vim-airline-themes
-	git clone https://github.com/Lokaltog/vim-powerline.git ~/.vim/bundle/vim-powerline
+create $VIMDIR
+create $VIMDIR/bundle/
+create $VIMDIR/autoload
+create $VIMDIR/colors
+create $VIMDIR/swapfiles
+link $FILEDIR/vim/snippets $VIMDIR/snippets
 
-        git clone https://github.com/rodjek/vim-puppet.git ~/.vim/bundle/vim-puppet
-        git clone https://github.com/hashivim/vim-vagrant.git
+e_git git://github.com/scrooloose/syntastic.git ~/.vim/bundle/syntastic
+e_git https://github.com/godlygeek/tabular.git ~/.vim/bundle/tabular
+e_git https://github.com/vim-airline/vim-airline.git ~/.vim/bundle/vim-airline
+e_git https://github.com/vim-airline/vim-airline-themes ~/.vim/bundle/vim-airline-themes
+e_git https://github.com/Lokaltog/vim-powerline.git ~/.vim/bundle/vim-powerline
 
-        mkdir $VIMDIR/autoload
-        curl -LSso $VIMDIR/autoload/pathogen.vim https://tpo.pe/pathogen.vim
-        mkdir $VIMDIR/colors
-        curl -LSso $VIMDIR/colors/molokai.vim https://raw.githubusercontent.com/tomasr/molokai/master/colors/molokai.vim
-        mkdir $VIMDIR/swapfiles
-        ln -s $FILEDIR/vim/snippets $VIMDIR/snippets
+e_git https://github.com/rodjek/vim-puppet.git ~/.vim/bundle/vim-puppet
+e_git https://github.com/hashivim/vim-vagrant.git $VIMDIR/bundle/vim-vagrant
 
-else
-	echo "### $VIMDIR exists. Doing nothing ###"
-fi	
+curl -LSso $VIMDIR/autoload/pathogen.vim https://tpo.pe/pathogen.vim
+curl -LSso $VIMDIR/colors/molokai.vim https://raw.githubusercontent.com/tomasr/molokai/master/colors/molokai.vim
 
 
 VIMFILE=~/.vimrc
-if [ ! -e $VIMFILE ];
-then
-
-	echo "### linking $FILEDIR/vimrc to $VIMFILE ###"
-	ln -s $FILEDIR/vimrc $VIMFILE
-else
-        echo "### $VIMFILE exists. Doing nothing ###"
-fi
+link $FILEDIR/vimrc $VIMFILE
 
 
 # Setup Xdefaults
 XDEFAULTS=~/.Xdefaults
-if [ ! -e $XDEFAULTS ];
-then
 
-	echo "### linking $FILEDIR/xdefaults to $XDEFAULTS ###"
-	ln -s $FILEDIR/vimrc $XDEFAULTS
-else
-        echo "### $XDEFAULTS exists. Doing nothing ###"
-fi	
+link $FILEDIR/Xdefaults $XDEFAULTS
 
-
-if [ -e ~/.vimrc ];
-then
-
-	echo "### linking ~/.dotfiles/vimrc to ~/.vimrc ###"
-	ln -s ~/.dotfiles/vimrc ~/.vimrc
-fi
