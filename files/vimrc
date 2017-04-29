@@ -4,12 +4,15 @@ set directory=$HOME/.vim/swapfiles//
 let g:airline_powerline_fonts = 1
 let g:airline_theme='simple'
 set laststatus=2
+set modeline
 "set clipboard=unnamedplus
 
 let g:syntastic_enable_signs=1
 let g:syntastic_quiet_messages = {'level': 'warnings'}
 let g:syntastic_auto_loc_list=1
+let g:syntastic_java_javac_config_file_enabled=1
 
+let g:syntastic_markdown_folding_disabled=1
 
 syntax on
 filetype plugin indent on
