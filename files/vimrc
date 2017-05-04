@@ -11,6 +11,7 @@ let g:syntastic_enable_signs=1
 let g:syntastic_quiet_messages = {'level': 'warnings'}
 let g:syntastic_auto_loc_list=1
 let g:syntastic_java_javac_config_file_enabled=1
+let g:syntastic_java_javac_config_file="syntastic_config"
 
 let g:syntastic_markdown_folding_disabled=1
 
@@ -22,3 +23,43 @@ filetype indent plugin on
 set expandtab
 set smarttab
 set autoindent
+
+
+
+
+function SearchJavaClasspath()
+	SyntasticInfo
+	let exp = '%:p'
+	let parent = expand(exp)
+	for i in [1,2,3,4,5,6,7,8,9,10]
+		let parent = expand(exp.':h')
+		let ls =  globpath(parent,'build.gradle')
+		if len(ls)
+			let gradlefile = globpath(parent,'gradle.build')
+			let projectdir = expand(exp.':h')
+			let i=5
+			break
+		endif
+		let exp = exp.':h'
+
+
+	endfor
+
+	let configFile = globpath(projectdir,g:syntastic_java_javac_config_file)
+
+	echo g:syntastic_java_javac_config_file
+	echo projectdir
+	echo configFile
+	if len(configFile)
+		echo "Found config file. Executing..."
+		execute 'source '.configFile
+	endif
+
+	let srcJava = expand(projectdir.'/src/java/',':p')
+
+	if g:syntastic_java_javac_classpath !~ srcJava
+		let g:syntastic_java_javac_classpath=g:syntastic_java_javac_classpath.':'.srcJava
+	endif
+
+	echo "New Classpath: ". g:syntastic_java_javac_classpath
+endfunction

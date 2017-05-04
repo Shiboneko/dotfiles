@@ -178,7 +178,7 @@ e_git https://github.com/godlygeek/tabular.git ~/.vim/bundle/tabular
 e_git https://github.com/vim-airline/vim-airline.git ~/.vim/bundle/vim-airline
 e_git https://github.com/vim-airline/vim-airline-themes ~/.vim/bundle/vim-airline-themes
 e_git https://github.com/Lokaltog/vim-powerline.git ~/.vim/bundle/vim-powerline
-
+e_git https://github.com/tfnico/vim-gradle
 e_git https://github.com/rodjek/vim-puppet.git ~/.vim/bundle/vim-puppet
 e_git https://github.com/hashivim/vim-vagrant.git $VIMDIR/bundle/vim-vagrant
 
