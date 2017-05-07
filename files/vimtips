@@ -1,0 +1,58 @@
+%
+:find to do fuzzy Search
+%
+C to change the Rest of the line
+%
+b to go back word, B to go back WORDS
+%
+diw to "delete in word"
+%
+ciw to "change in word"
+%
+':map <leader>' will show you all the mappings defined that start with <leader>.
+%
+o to add a Line under the cursor.
+O to add a line above the cursor
+%
+':let mapleader' will show you the current leader.
+The default Leader Key is \
+%
+Toogle Tagbar: <F8>
+%
+List Buffers: :ls
+%
+Choose another Buffer: :b
+%
+Jump to Tag: ^]
+%
+List all Tags: g^]
+%
+Jump back the Tag Stack: ^t
+%
+Create tags file: :MakeTags
+%
+Autocomplete from current file: ^x^n
+%
+Autocomplete for tags only: ^x^]
+%
+Help for autocomplete: :help ins-completion
+%
+Insert Folders with Autocomplete: ^x^f
+%
+Open a File/Folder: :edit
+%
+Next Buffer: :bn
+%
+Previos Buffer: :bp
+%
+Open Folder/File in Tab, when in netrw: t
+%
+Open Folder/File in split, when in netrw: h or v
+%
+Tabs!: :tab
+%
+Goto first line: gg
+%
+Goto last line: G
+%
+

@@ -4,6 +4,13 @@ set directory=$HOME/.vim/swapfiles//
 let g:airline_powerline_fonts = 1
 let g:airline_theme='simple'
 set laststatus=2
+
+
+"See, in which line the cursor is
+set cursorline
+
+"See, in which column the cursor is
+set cursorcolumn
 set modeline
 "set clipboard=unnamedplus
 
@@ -23,11 +30,63 @@ filetype indent plugin on
 set expandtab
 set smarttab
 set autoindent
+" Display Line Numbers
+set number
+
+" Recursive
+set path+=**
+set wildmenu
 
 
+"netrw Settings
+let g:netrw_banner=0 "disable Banner
+let g:netrw_browse_split=4 "open in main window
+let g:netrw_altv=1 "open Splits to the right
+let g:netrw_liststyle=3 "tree view
+
+"Make Tags
+command! MakeTags !ctags -R .
+
+"Toggle the Tagbar
+nmap <F8> :TagbarToggle<CR>
+
+"Map Vimtip Functip to the command Vimtip
+command! Vimtip :call Vimtip()
+"Display a Vimtip at the start
+autocmd VimEnter * Vimtip
+function! Vimtip()
+        let vimtipsfile = $HOME."/.vim/vimtips"
+        let vimtips = readfile(vimtipsfile)
+        let linecount = count(vimtips, "%") + 1
+        let random = s:randnum(linecount-1)
+        echom "Vimtip #".random
+
+        let c = 1
+        let start = 0
+
+        while c < random
+                let start = index(vimtips, "%", start+1)
+                let c += 1
+        endwhile
 
 
-function SearchJavaClasspath()
+        let end = index(vimtips, "%",start+1)
+
+        let c = start+1
+        while c < end
+                echom get(vimtips, c)
+                let c += 1
+        endwhile
+
+
+endfunction
+
+function! s:randnum(max) abort
+  return str2nr(matchstr(reltimestr(reltime()), '\v\.@<=\d+')[1:]) % a:max
+endfunction
+
+
+function! SearchJavaClasspath()
 	SyntasticInfo
 	let exp = '%:p'
 	let parent = expand(exp)

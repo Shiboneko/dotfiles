@@ -172,15 +172,17 @@ create $VIMDIR/autoload
 create $VIMDIR/colors
 create $VIMDIR/swapfiles
 link $FILEDIR/vim/snippets $VIMDIR/snippets
+link $FILEDIR/vim/vimtips $VIMDIR/vimtips
 
-e_git git://github.com/scrooloose/syntastic.git ~/.vim/bundle/syntastic
-e_git https://github.com/godlygeek/tabular.git ~/.vim/bundle/tabular
-e_git https://github.com/vim-airline/vim-airline.git ~/.vim/bundle/vim-airline
-e_git https://github.com/vim-airline/vim-airline-themes ~/.vim/bundle/vim-airline-themes
-e_git https://github.com/Lokaltog/vim-powerline.git ~/.vim/bundle/vim-powerline
-e_git https://github.com/tfnico/vim-gradle
-e_git https://github.com/rodjek/vim-puppet.git ~/.vim/bundle/vim-puppet
+e_git git://github.com/scrooloose/syntastic.git $VIMDIR/bundle/syntastic
+e_git https://github.com/godlygeek/tabular.git $VIMDIR/bundle/tabular
+e_git https://github.com/vim-airline/vim-airline.git $VIMDIR/bundle/vim-airline
+e_git https://github.com/vim-airline/vim-airline-themes $VIMDIR/bundle/vim-airline-themes
+e_git https://github.com/Lokaltog/vim-powerline.git $VIMDIR/bundle/vim-powerline
+e_gitt https://github.com/tfnico/vim-gradle $VIMDIR/bundle/vim-gradle
+e_git https://github.com/rodjek/vim-puppet.git $VIMDIR/bundle/vim-puppet
 e_git https://github.com/hashivim/vim-vagrant.git $VIMDIR/bundle/vim-vagrant
+e_git https://github.com/majutsushi/tagbar.git $VIMDIR/bundle/tabbar
 
 curl -LSso $VIMDIR/autoload/pathogen.vim https://tpo.pe/pathogen.vim
 curl -LSso $VIMDIR/colors/molokai.vim https://raw.githubusercontent.com/tomasr/molokai/master/colors/molokai.vim
